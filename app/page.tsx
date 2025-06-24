@@ -591,7 +591,8 @@ export default function SigiloX() {
   lastTinderUse &&
   cityChange &&
   selectedAgeRange;
-  return (
+
+return (
     <div className="min-h-screen" style={{ fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif" }}>
       {/* Global Progress Bar - Mobile Optimized */}
       {currentStep !== "landing" && (
