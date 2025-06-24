@@ -590,7 +590,6 @@ export default function SigiloX() {
   profilePhoto &&
   lastTinderUse &&
   cityChange &&
-  selectedAgeRange;
 
 return (
   <div className="min-h-screen" style={{ fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif" }}>
