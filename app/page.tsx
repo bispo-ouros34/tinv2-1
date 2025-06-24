@@ -593,7 +593,7 @@ export default function SigiloX() {
   selectedAgeRange;
 
 return (
-    <div className="min-h-screen" style={{ fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif" }}>
+  <div className="min-h-screen"> style={{ fontFamily: "Inter, -apple-system, BlinkMacSystemFont, sans-serif" }}>
       {/* Global Progress Bar - Mobile Optimized */}
       {currentStep !== "landing" && (
         <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
