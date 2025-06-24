@@ -585,7 +585,6 @@ export default function SigiloX() {
   }, [currentStep])
 
   const canVerify =
-    const canVerify =
   phoneNumber.length >= 10 &&
   selectedGender &&
   profilePhoto &&
