@@ -1162,146 +1162,168 @@ export default function SigiloX() {
                           {photoError && (
                             <p className="text-xs sm:text-sm text-red-500 mt-3 font-medium">{photoError}</p>
                           )}
-
-                          {profilePhoto && !isLoadingPhoto && (
+                          {!isLoadingPhoto && !profilePhoto && (
                             <p className="text-xs sm:text-sm text-gray-500 mt-3 font-medium">
-                              {isPhotoPrivate ? "Private photo detected" : "Public photo found"}
+                              No profile photo detected yet.
                             </p>
                           )}
                         </div>
                       </div>
 
-                      {/* Age Range Selection */}
+                      {/* Gender Selection */}
                       <div>
-                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          Target Age Range
+                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-2 sm:mb-3">
+                          Gender of the person to be verified
                         </label>
-                        <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                          {[
-                            { id: "25-34", label: "25-34", icon: "👤" },
-                            { id: "35-44", label: "35-44", icon: "👥" },
-                            { id: "45-54", label: "45-54", icon: "👨‍👩‍👧‍👦" },
-                          ].map((option) => (
-                            <button
-                              key={option.id}
-                              onClick={() => setSelectedAgeRange(option.id)}
-                              className={`p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 hover:shadow-lg touch-manipulation ${
-                                selectedAgeRange === option.id
-                                  ? "border-purple-500 bg-purple-50 shadow-lg"
-                                  : "border-gray-200 hover:border-gray-300 bg-white"
-                              }`}
-                            >
-                              <div className="text-xl sm:text-2xl mb-1 sm:mb-2">{option.icon}</div>
-                              <div className="text-xs sm:text-sm font-semibold">{option.label}</div>
-                            </button>
-                          ))}
+                        <div className="flex flex-wrap gap-3 sm:gap-4">
+                          <Button
+                            type="button"
+                            onClick={() => setSelectedGender("male")}
+                            className={`flex-1 min-w-[120px] sm:min-w-[150px] py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base transition-colors duration-200 ${
+                              selectedGender === "male"
+                                ? "bg-[#6C63FF] border-[#6C63FF] text-white shadow-md"
+                                : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            <User className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> Male
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => setSelectedGender("female")}
+                            className={`flex-1 min-w-[120px] sm:min-w-[150px] py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base transition-colors duration-200 ${
+                              selectedGender === "female"
+                                ? "bg-[#FF0066] border-[#FF0066] text-white shadow-md"
+                                : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            <User className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> Female
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => setSelectedGender("other")}
+                            className={`flex-1 min-w-[120px] sm:min-w-[150px] py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base transition-colors duration-200 ${
+                              selectedGender === "other"
+                                ? "bg-gray-700 border-gray-700 text-white shadow-md"
+                                : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            Other
+                          </Button>
                         </div>
                       </div>
 
-                      {/* Gender Selection */}
+                      {/* Age Range Selection */}
                       <div>
-                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          Gender
+                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-2 sm:mb-3">
+                          Age Range
                         </label>
-                        <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                        <div className="flex flex-wrap gap-3 sm:gap-4">
                           {[
-                            { id: "masculino", label: "Male", icon: "👨", color: "blue" },
-                            { id: "feminino", label: "Female", icon: "👩", color: "pink" },
-                            { id: "nao-binario", label: "Non-Binary", icon: "👤", color: "purple" },
-                          ].map((option) => (
-                            <button
-                              key={option.id}
-                              onClick={() => setSelectedGender(option.id)}
-                              className={`p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 hover:shadow-lg touch-manipulation ${
-                                selectedGender === option.id
-                                  ? `border-${option.color}-500 bg-${option.color}-50 shadow-lg`
-                                  : "border-gray-200 hover:border-gray-300 bg-white"
+                            "18-24",
+                            "25-34",
+                            "35-44",
+                            "45-54",
+                            "55+",
+                          ].map((range) => (
+                            <Button
+                              key={range}
+                              type="button"
+                              onClick={() => setSelectedAgeRange(range)}
+                              className={`flex-1 py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base transition-colors duration-200 ${
+                                selectedAgeRange === range
+                                  ? "bg-[#6C63FF] border-[#6C63FF] text-white shadow-md"
+                                  : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
                               }`}
                             >
-                              <div className="text-xl sm:text-2xl mb-1 sm:mb-2">{option.icon}</div>
-                              <div className="text-xs sm:text-sm font-semibold">{option.label}</div>
-                            </button>
+                              {range}
+                            </Button>
                           ))}
                         </div>
                       </div>
 
                       {/* Last Tinder Use */}
                       <div>
-                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          Last time this person may have used Tinder:
+                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-2 sm:mb-3">
+                          When was the last time they used Tinder?
                         </label>
-                        <div className="space-y-2 sm:space-y-3">
+                        <div className="flex flex-wrap gap-3 sm:gap-4">
                           {[
-                            { id: "7-days", label: "In the last 7 days" },
-                            { id: "30-days", label: "In the last 30 days" },
-                            { id: "1-month", label: "More than 1 month" },
-                            { id: "not-sure", label: "I'm not sure" },
-                          ].map((option) => (
-                            <button
-                              key={option.id}
-                              onClick={() => setLastTinderUse(option.id)}
-                              className={`w-full p-3 sm:p-4 text-left rounded-xl border-2 transition-all duration-200 hover:shadow-lg touch-manipulation ${
-                                lastTinderUse === option.id
-                                  ? "border-blue-500 bg-blue-50 shadow-lg"
-                                  : "border-gray-200 hover:border-gray-300 bg-white"
+                            "Less than 1 week",
+                            "1-4 weeks ago",
+                            "1-6 months ago",
+                            "More than 6 months ago",
+                            "I don't know",
+                          ].map((time) => (
+                            <Button
+                              key={time}
+                              type="button"
+                              onClick={() => setLastTinderUse(time)}
+                              className={`flex-1 py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base text-center transition-colors duration-200 ${
+                                lastTinderUse === time
+                                  ? "bg-[#FF0066] border-[#FF0066] text-white shadow-md"
+                                  : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
                               }`}
                             >
-                              <div className="flex items-center gap-3">
-                                <div
-                                  className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex-shrink-0 transition-all duration-200 ${
-                                    lastTinderUse === option.id ? "bg-blue-500 border-blue-500" : "border-gray-300"
-                                  }`}
-                                />
-                                <span className="font-medium text-sm sm:text-base">{option.label}</span>
-                              </div>
-                            </button>
+                              {time}
+                            </Button>
                           ))}
                         </div>
                       </div>
 
                       {/* City Change */}
                       <div>
-                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-3 sm:mb-4">
-                          Did this person move cities recently?
+                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-2 sm:mb-3">
+                          Have they changed cities/states recently?
                         </label>
-                        <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                          {[
-                            { id: "yes", label: "Yes" },
-                            { id: "no", label: "No" },
-                            { id: "dont-know", label: "I don't know" },
-                          ].map((option) => (
-                            <button
-                              key={option.id}
-                              onClick={() => setCityChange(option.id)}
-                              className={`p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 hover:shadow-lg touch-manipulation ${
-                                cityChange === option.id
-                                  ? "border-green-500 bg-green-50 shadow-lg"
-                                  : "border-gray-200 hover:border-gray-300 bg-white"
-                              }`}
-                            >
-                              <div className="font-semibold text-sm sm:text-base">{option.label}</div>
-                            </button>
-                          ))}
+                        <div className="flex flex-wrap gap-3 sm:gap-4">
+                          <Button
+                            type="button"
+                            onClick={() => setCityChange("yes")}
+                            className={`flex-1 py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base transition-colors duration-200 ${
+                              cityChange === "yes"
+                                ? "bg-[#6C63FF] border-[#6C63FF] text-white shadow-md"
+                                : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            Yes
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => setCityChange("no")}
+                            className={`flex-1 py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base transition-colors duration-200 ${
+                              cityChange === "no"
+                                ? "bg-[#FF0066] border-[#FF0066] text-white shadow-md"
+                                : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            No
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => setCityChange("don't know")}
+                            className={`flex-1 py-2 sm:py-3 px-4 sm:px-6 rounded-xl border-2 font-medium text-sm sm:text-base transition-colors duration-200 ${
+                              cityChange === "don't know"
+                                ? "bg-gray-700 border-gray-700 text-white shadow-md"
+                                : "bg-gray-100 border-gray-200 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            I don't know
+                          </Button>
                         </div>
                       </div>
 
                       {/* Submit Button */}
                       <Button
                         onClick={() => setCurrentStep("verification")}
-                        disabled={!canVerify}
-                        className={`w-full py-3 sm:py-4 text-base sm:text-lg font-bold rounded-xl transition-all duration-300 touch-manipulation ${
-                          canVerify
-                            ? "bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white shadow-xl hover:shadow-2xl transform hover:scale-105"
+                        disabled={!canVerify || isLoadingPhoto || isUploadingPhoto}
+                        className={`w-full py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg font-bold rounded-2xl shadow-xl transition-all duration-300 ${
+                          canVerify && !isLoadingPhoto && !isUploadingPhoto
+                            ? "bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white hover:scale-105"
                             : "bg-gray-300 text-gray-500 cursor-not-allowed"
                         }`}
                       >
-                        🔎 START PROFILE ANALYSIS
+                        {isLoadingPhoto || isUploadingPhoto ? "Loading Photo..." : "⚡ START VERIFICATION"}
                       </Button>
-
-                      <p className="text-xs sm:text-sm text-gray-500 text-center flex items-center justify-center gap-2 font-medium">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5" />🔒 Data encrypted with international privacy
-                        standards
-                      </p>
                     </CardContent>
                   </Card>
                 </div>
@@ -1309,265 +1331,33 @@ export default function SigiloX() {
             </motion.div>
           )}
 
-          {/* Verification - Enhanced Credibility */}
+          {/* Verification Progress - Mobile Optimized */}
           {currentStep === "verification" && (
             <motion.div
               key="verification"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-black"
+              className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] relative overflow-hidden flex items-center justify-center p-4 sm:p-6"
             >
-              {/* Advanced Tech Background */}
-              <div className="absolute inset-0 opacity-20">
-                {/* Neural Network Pattern */}
-                <div className="absolute inset-0">
-                  {[...Array(20)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-blue-400 rounded-full"
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                      animate={{
-                        scale: [1, 2, 1],
-                        opacity: [0.3, 1, 0.3],
-                      }}
-                      transition={{
-                        duration: 2 + Math.random() * 3,
-                        repeat: Number.POSITIVE_INFINITY,
-                        delay: Math.random() * 2,
-                      }}
-                    />
-                  ))}
-                </div>
-                
-                {/* Scanning Lines */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-transparent h-20"
-                  animate={{
-                    y: ["-100px", "calc(100vh + 100px)"],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "linear",
-                  }}
-                />
-              </div>
-
-              {/* Main Verification Interface */}
-              <div className="relative z-10 w-full max-w-2xl mx-auto px-4">
-                <Card className="bg-gray-900/95 border-2 border-blue-500/30 rounded-2xl shadow-2xl backdrop-blur-sm">
-                  <CardContent className="p-6 sm:p-8">
-                    {/* Header with Logo */}
-                    <div className="text-center mb-6 sm:mb-8">
-                      <div className="flex items-center justify-center gap-3 mb-4">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                          <Search className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                        </div>
-                        <h1 className="text-xl sm:text-2xl font-bold text-white">
-                          SigiloX<span className="text-blue-400">™</span> AI Engine
-                        </h1>
-                      </div>
-                      <p className="text-blue-300 text-sm sm:text-base font-medium">
-                        Advanced Facial Recognition & Profile Analysis
-                      </p>
-                    </div>
-
-                    {/* Profile Analysis Section */}
-                    <div className="mb-6 sm:mb-8">
-                      {(uploadedPhoto || profilePhoto) ? (
-                        <div className="relative">
-                          <img
-                            src={(uploadedPhoto || profilePhoto) || "/placeholder.svg"}
-                            alt={uploadedPhoto ? "Uploaded Target Photo" : "Target Profile"}
-                            className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl border-2 border-blue-400 shadow-lg"
-                          />
-                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900 animate-pulse" />
-                        </div>
-                      ) : (
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center border-2 border-blue-400">
-                          <User className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                        </div>
-                      )}
-                      
-                      <div className="flex-1">
-                        <h3 className="text-white font-bold text-base sm:text-lg mb-1">Target Identified</h3>
-                        <p className="text-blue-300 text-sm">
-                          Phone: {phoneNumber.replace(/(\+\d{1,3})(\d{2})(\d+)/, '$1 $2 ****')}
-                        </p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                          <span className="text-green-400 text-xs font-medium">ACTIVE PROFILE DETECTED</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* AI Analysis Progress */}
-                    <div className="mb-6 sm:mb-8">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-white font-semibold text-sm sm:text-base">AI Analysis Progress</span>
-                        <span className="text-blue-400 font-bold text-sm sm:text-base">{Math.round(verificationProgress)}%</span>
-                      </div>
-                      
-                      <div className="relative">
-                        <Progress
-                          value={verificationProgress}
-                          className="h-3 sm:h-4 bg-gray-800 rounded-full overflow-hidden border border-blue-500/30"
-                        />
-                        <motion.div
-                          className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"
-                          style={{ width: `${verificationProgress}%` }}
-                          animate={{
-                            boxShadow: [
-                              "0 0 10px rgba(59, 130, 246, 0.5)",
-                              "0 0 20px rgba(59, 130, 246, 0.8)",
-                              "0 0 10px rgba(59, 130, 246, 0.5)",
-                            ],
-                          }}
-                          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Current Analysis Step */}
-                    <div className="mb-6 sm:mb-8">
-                      <div className="bg-gray-800/50 rounded-xl p-4 border border-blue-500/20">
-                        <div className="flex items-center gap-3 mb-3">
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                            className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full"
-                          />
-                          <span className="text-blue-400 font-semibold text-sm sm:text-base">Current Process:</span>
-                        </div>
-                        <p className="text-white text-sm sm:text-base font-medium mb-2">{verificationMessage}</p>
-                        
-                        {/* Technical Details */}
-                        <div className="grid grid-cols-2 gap-3 mt-4">
-                          <div className="text-center">
-                            <div className="text-green-400 font-bold text-lg sm:text-xl">
-                              {Math.floor(Math.random() * 50) + 150}
-                            </div>
-                            <div className="text-gray-400 text-xs">Databases Scanned</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="text-cyan-400 font-bold text-lg sm:text-xl">
-                              {Math.floor(Math.random() * 20) + 80}%
-                            </div>
-                            <div className="text-gray-400 text-xs">Match Confidence</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Real-time Analysis Feed */}
-                    <div className="mb-6 sm:mb-8">
-                      <h4 className="text-white font-semibold mb-3 text-sm sm:text-base">Real-time Analysis Feed:</h4>
-                      <div className="bg-black/30 rounded-xl p-3 sm:p-4 border border-green-500/20 max-h-32 overflow-y-auto">
-                        <div className="space-y-1 text-xs sm:text-sm font-mono">
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="text-green-400"
-                          >
-                            [AI] Facial recognition algorithm initialized...
-                          </motion.div>
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 1 }}
-                            className="text-blue-400"
-                          >
-                            [DB] Scanning 247 social media platforms...
-                          </motion.div>
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 2 }}
-                            className="text-yellow-400"
-                          >
-                            [MATCH] Profile similarity: 94.7% confidence
-                          </motion.div>
-                          <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 3 }}
-                            className="text-cyan-400"
-                          >
-                            [GEO] Location data cross-referenced...
-                          </motion.div>
-                          {verificationProgress > 50 && (
-                            <motion.div
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              className="text-red-400"
-                            >
-                              [ALERT] Suspicious activity patterns detected
-                            </motion.div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Security & Privacy Notice */}
-                    <div className="bg-gradient-to-r from-gray-800/50 to-blue-900/30 rounded-xl p-4 border border-blue-500/20">
-                      <div className="flex items-start gap-3">
-                        <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <h5 className="text-white font-semibold text-sm sm:text-base mb-2">Privacy & Security</h5>
-                          <div className="space-y-1 text-xs sm:text-sm text-gray-300">
-                            <p>✓ End-to-end encrypted analysis</p>
-                            <p>✓ No data stored on our servers</p>
-                            <p>✓ GDPR & CCPA compliant processing</p>
-                            <p>✓ Target remains completely unaware</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Technical Specs Footer */}
-                    <div className="mt-6 pt-4 border-t border-gray-700">
-                      <div className="flex items-center justify-between text-xs text-gray-400">
-                        <span>Engine: SigiloX AI v3.2.1</span>
-                        <span>SSL: 256-bit encryption</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Preliminary Results - Mobile Optimized */}
-          {currentStep === "preliminary" && (
-            <motion.div
-              key="preliminary"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="min-h-screen relative overflow-hidden flex items-center justify-center bg-[#F9F9F9]"
-            >
-              {/* Matrix Background - Reduced for mobile */}
-              <div className="absolute inset-0 opacity-30">
-                {matrixCodes.slice(0, 10).map((code, index) => (
+              {/* Matrix Background - Reduced for mobile performance */}
+              <div className="absolute inset-0 opacity-10 sm:opacity-20">
+                {matrixCodes.slice(0, 20).map((code, index) => (
                   <motion.div
                     key={index}
-                    className="absolute text-[#00FF00] text-xs font-mono"
+                    className="absolute text-green-400 text-xs font-mono"
                     style={{
                       left: `${Math.random() * 100}%`,
                       top: `${Math.random() * 100}%`,
                     }}
                     animate={{
-                      y: [0, -20, 0],
-                      opacity: [0.2, 0.6, 0.2],
+                      y: [0, -30, 0],
+                      opacity: [0.3, 0.9, 0.3],
                     }}
                     transition={{
-                      duration: 4 + Math.random() * 2,
+                      duration: 4 + Math.random() * 3,
                       repeat: Number.POSITIVE_INFINITY,
-                      delay: Math.random() * 2,
+                      delay: Math.random() * 3,
                     }}
                   >
                     {code}
@@ -1575,60 +1365,83 @@ export default function SigiloX() {
                 ))}
               </div>
 
-              {/* Preliminary Card */}
-              <div className="relative z-10 w-full max-w-lg mx-auto px-4">
-                <Card className="bg-white border-2 border-green-500 rounded-2xl shadow-2xl">
-                  <CardContent className="p-6 sm:p-8 text-center">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.5, type: "spring" }}
-                      className="mb-6 sm:mb-8"
-                    >
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl mx-auto flex items-center justify-center shadow-2xl">
-                        <CheckCircle className="w-10 h-10 sm:w-14 sm:h-14 text-white" />
-                      </div>
-                    </motion.div>
+              <Card className="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-xl border-0 text-center p-6 sm:p-8">
+                <CardContent>
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-[#FF0066] to-[#FF3333] rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-lg animate-pulse">
+                    <Shield className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-5">
+                    VERIFYING AUTHENTICITY...
+                  </h2>
+                  <p className="text-gray-600 text-sm sm:text-base mb-6 sm:mb-8 font-medium">
+                    Our advanced AI is performing a deep scan of the provided information. This may take a few moments.
+                  </p>
+                  <Progress value={verificationProgress} className="w-full h-3 sm:h-4 rounded-full mb-4 sm:mb-5" />
+                  <p className="text-sm sm:text-base font-semibold text-[#6C63FF] mb-6 sm:mb-8 animate-pulse">
+                    {verificationMessage} ({Math.round(verificationProgress)}%)
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                    Please do not close this page.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
 
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#333333] mb-4 sm:mb-6">
-                      🟢 Preliminary Analysis Completed!
-                    </h2>
-                    <p className="text-gray-700 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base px-2">
-                      The system identified{" "}
-                      <span className="text-[#D8000C] font-bold">signs of suspicious activity</span> linked to the
-                      provided number.
-                    </p>
-
-                    {/* Face Match Card - Only show if uploadedPhoto exists */}
-                    {uploadedPhoto && (
-                      <div className="bg-green-100 border-2 border-green-400 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8">
-                        <p className="text-green-800 text-sm sm:text-base font-medium">
-                          🎯 <strong>Face Match Found:</strong> We found potential profile matches based on the uploaded photo across multiple dating platforms.
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="bg-yellow-100 border-2 border-yellow-400 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8">
-                      <p className="text-yellow-800 text-sm sm:text-base font-medium">
-                        👉 <strong>Next step:</strong> Generating complete report of photos, conversations and
-                        locations...
-                      </p>
-                    </div>
-
-                    <Button
-                      onClick={() => setCurrentStep("generating")}
-                      className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 text-base sm:text-lg rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 touch-manipulation"
-                    >
-                      📊 GENERATE COMPLETE REPORT
-                    </Button>
-
-                    <div className="mt-6 sm:mt-8 flex items-center justify-center gap-2 sm:gap-3 text-green-600 text-sm sm:text-base font-medium">
-                      <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
-                      <span>Secure and anonymous processing</span>
-                    </div>
-                  </CardContent>
-                </Card>
+          {/* Preliminary Result - Mobile Optimized */}
+          {currentStep === "preliminary" && (
+            <motion.div
+              key="preliminary"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] relative overflow-hidden flex items-center justify-center p-4 sm:p-6"
+            >
+              {/* Matrix Background - Reduced for mobile performance */}
+              <div className="absolute inset-0 opacity-10 sm:opacity-20">
+                {matrixCodes.slice(0, 20).map((code, index) => (
+                  <motion.div
+                    key={index}
+                    className="absolute text-green-400 text-xs font-mono"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                    }}
+                    animate={{
+                      y: [0, -30, 0],
+                      opacity: [0.3, 0.9, 0.3],
+                    }}
+                    transition={{
+                      duration: 4 + Math.random() * 3,
+                      repeat: Number.POSITIVE_INFINITY,
+                      delay: Math.random() * 3,
+                    }}
+                  >
+                    {code}
+                  </motion.div>
+                ))}
               </div>
+
+              <Card className="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-xl border-0 text-center p-6 sm:p-8">
+                <CardContent>
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-lg animate-bounce">
+                    <AlertTriangle className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-5">
+                    PRELIMINARY ANALYSIS COMPLETE
+                  </h2>
+                  <p className="text-gray-600 text-sm sm:text-base mb-6 sm:mb-8 font-medium">
+                    Our system has detected **suspicious activity** associated with the profile. A full confidential
+                    report is being generated now.
+                  </p>
+                  <Button
+                    onClick={() => setCurrentStep("generating")}
+                    className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  >
+                    GENERATE FULL REPORT
+                  </Button>
+                </CardContent>
+              </Card>
             </motion.div>
           )}
 
@@ -1639,26 +1452,26 @@ export default function SigiloX() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center"
+              className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] relative overflow-hidden flex items-center justify-center p-4 sm:p-6"
             >
-              {/* Matrix Background - Reduced for mobile */}
-              <div className="absolute inset-0">
-                {matrixCodes.slice(0, 15).map((code, index) => (
+              {/* Matrix Background - Reduced for mobile performance */}
+              <div className="absolute inset-0 opacity-10 sm:opacity-20">
+                {matrixCodes.slice(0, 20).map((code, index) => (
                   <motion.div
                     key={index}
-                    className="absolute text-[#00FF00] text-sm font-mono opacity-80"
+                    className="absolute text-green-400 text-xs font-mono"
                     style={{
                       left: `${Math.random() * 100}%`,
                       top: `${Math.random() * 100}%`,
                     }}
                     animate={{
-                      y: [0, -40, 0],
-                      opacity: [0.4, 1, 0.4],
+                      y: [0, -30, 0],
+                      opacity: [0.3, 0.9, 0.3],
                     }}
                     transition={{
-                      duration: 2 + Math.random() * 2,
+                      duration: 4 + Math.random() * 3,
                       repeat: Number.POSITIVE_INFINITY,
-                      delay: Math.random() * 2,
+                      delay: Math.random() * 3,
                     }}
                   >
                     {code}
@@ -1666,354 +1479,144 @@ export default function SigiloX() {
                 ))}
               </div>
 
-              {/* Generating Card */}
-              <div className="relative z-10 w-full max-w-lg mx-auto px-4">
-                <Card className="bg-gray-900 border-2 border-blue-500 rounded-2xl shadow-2xl">
-                  <CardContent className="p-6 sm:p-8 text-center">
-                    <div className="mb-6 sm:mb-8">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                        className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl mx-auto flex items-center justify-center shadow-2xl"
-                      >
-                        <Activity className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
-                      </motion.div>
-                    </div>
-
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
-                      BUILDING REPORT...
-                    </h2>
-                    <p className="text-blue-400 mb-6 sm:mb-8 text-sm sm:text-base font-medium px-2">
-                      {generatingMessage}
-                    </p>
-
-                    <div className="mb-4 sm:mb-6">
-                      <Progress
-                        value={generatingProgress}
-                        className="h-3 sm:h-4 bg-gray-800 rounded-full overflow-hidden"
-                      />
-                    </div>
-
-                    <p className="text-white text-lg sm:text-xl font-bold mb-6 sm:mb-8">
-                      {Math.round(generatingProgress)}% completed
-                    </p>
-
-                    <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-400">
-                      <div className="flex items-center justify-center gap-2 sm:gap-3">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
-                        <span className="font-medium">Advanced processing in progress</span>
-                      </div>
-                      <p className="font-medium">Estimated time: {Math.ceil((100 - generatingProgress) / 3)} seconds</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              <Card className="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-xl border-0 text-center p-6 sm:p-8">
+                <CardContent>
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-[#00FF99] to-[#00CC66] rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-lg animate-pulse">
+                    <Search className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-5">
+                    GENERATING CONFIDENTIAL REPORT...
+                  </h2>
+                  <p className="text-gray-600 text-sm sm:text-base mb-6 sm:mb-8 font-medium">
+                    Please wait while we compile all the sensitive data into your private report.
+                  </p>
+                  <Progress value={generatingProgress} className="w-full h-3 sm:h-4 rounded-full mb-4 sm:mb-5" />
+                  <p className="text-sm sm:text-base font-semibold text-[#6C63FF] mb-6 sm:mb-8 animate-pulse">
+                    {generatingMessage} ({Math.round(generatingProgress)}%)
+                  </p>
+                  {geoLoading && (
+                    <p className="text-xs sm:text-sm text-gray-500 font-medium">Getting user location for enhanced accuracy...</p>
+                  )}
+                  {geoError && (
+                    <p className="text-xs sm:text-sm text-red-500 font-medium">Could not get user location: {geoError.message}</p>
+                  )}
+                  <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                    Please do not close this page.
+                  </p>
+                </CardContent>
+              </Card>
             </motion.div>
           )}
 
-          {/* Result - Mobile Optimized */}
+          {/* Result Page - Mobile Optimized */}
           {currentStep === "result" && (
             <motion.div
               key="result"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen py-4 sm:py-8 bg-[#FFE6E6]"
+              className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] relative overflow-hidden p-4 sm:p-6 flex flex-col justify-center"
             >
-              <div className="container mx-auto px-4 max-w-lg">
-                {/* Alert */}
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="bg-[#FF3B30] text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl relative mb-4 sm:mb-6 shadow-2xl"
-                  role="alert"
-                >
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    {uploadedPhoto && (
-                      <img
-                        src={uploadedPhoto || "/placeholder.svg"}
-                        alt="Uploaded search photo"
-                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-white shadow-lg flex-shrink-0"
-                      />
-                    )}
-                    <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse flex-shrink-0" />
-                    <div className="flex-1">
-                      <strong className="font-bold text-base sm:text-lg">PROFILE FOUND!</strong>
-                      <p className="text-xs sm:text-sm opacity-90">They are active on Tinder.</p>
-                      {uploadedPhoto && (
-                        <p className="text-xs opacity-75 mt-1">✓ Enhanced search with uploaded photo</p>
-                      )}
+              {/* Matrix Background - Reduced for mobile performance */}
+              <div className="absolute inset-0 opacity-10 sm:opacity-20">
+                {matrixCodes.slice(0, 25).map((code, index) => (
+                  <motion.div
+                    key={index}
+                    className="absolute text-green-400 text-xs font-mono"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                    }}
+                    animate={{
+                      y: [0, -40, 0],
+                      opacity: [0.3, 1, 0.3],
+                    }}
+                    transition={{
+                      duration: 5 + Math.random() * 4,
+                      repeat: Number.POSITIVE_INFINITY,
+                      delay: Math.random() * 4,
+                    }}
+                  >
+                    {code}
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="relative z-10 w-full max-w-2xl mx-auto container">
+                <Card className="bg-white rounded-2xl shadow-xl border-0 text-center p-6 sm:p-8 mb-6 sm:mb-8">
+                  <CardContent>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-[#FF0066] to-[#FF3333] rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-lg">
+                      <Lock className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
                     </div>
-                  </div>
-                </motion.div>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-5">
+                      CONFIDENTIAL REPORT READY!
+                    </h2>
+                    <p className="text-gray-600 text-sm sm:text-base mb-6 sm:mb-8 font-medium">
+                      The full report with all discovered activity, photos, and conversations is ready for secure access.
+                    </p>
 
-                {/* Warning */}
-                <Card className="bg-[#FF3B30] text-white mb-4 sm:mb-6 rounded-2xl border-0 shadow-xl">
-                  <CardContent className="p-4 sm:p-6">
-                    <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                      <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 animate-pulse" />
-                      <span className="font-bold text-base sm:text-lg">ATTENTION: ACTIVE PROFILE FOUND!</span>
-                    </div>
-                    <p className="text-sm opacity-90">We confirm this number is linked to an ACTIVE Tinder profile.</p>
-                    {/* Geolocation info */}
-                    {city && (
-                      <p className="text-xs sm:text-sm opacity-90 mt-2 font-medium">
-                        Latest usage records detected in{" "}
-                        <span className="text-yellow-300 font-bold underline">{city}</span>.
-                      </p>
-                    )}
-                  </CardContent>
-                </Card>
-
-                {/* Face Match Card - Only show if uploadedPhoto exists */}
-                {uploadedPhoto && (
-                  <Card className="bg-green-600 text-white mb-4 sm:mb-6 rounded-2xl border-0 shadow-xl">
-                    <CardContent className="p-4 sm:p-6">
-                      <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                        <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-                        <span className="font-bold text-base sm:text-lg">🎯 Face Match Found</span>
-                      </div>
-                      <p className="text-sm opacity-90">
-                        We found potential profile matches based on the uploaded photo across multiple dating platforms.
-                      </p>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Blocked Photos */}
-                <Card className="bg-gray-900 text-white mb-4 sm:mb-6 rounded-2xl border-0 shadow-xl">
-                  <CardContent className="p-4 sm:p-6 text-center">
-                    <div className="flex items-center justify-between mb-4 sm:mb-6 text-xs">
-                      <span className="bg-[#FF3B30] px-2 sm:px-3 py-1 sm:py-2 rounded-full font-bold">ONLINE NOW!</span>
-                      <span className="bg-[#FFA500] text-black px-2 sm:px-3 py-1 sm:py-2 rounded-full font-bold">
-                        FREE TRIAL
-                      </span>
-                      <span className="font-bold">1/4</span>
-                    </div>
-
-                    <Lock className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 sm:mb-6 text-gray-400" />
-                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">CENSORED PHOTOS</h3>
-
-                    {/* Carrossel de Imagens Bloqueadas */}
-                    <div className="relative mb-4 sm:mb-6 max-w-xs mx-auto">
-                      <div className="overflow-hidden rounded-2xl bg-gray-800 border-2 border-gray-600">
-                        <div
-                          className="flex transition-transform duration-300 ease-in-out"
-                          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                        >
-                          {blockedImages.map((image, index) => (
-                            <div key={index} className="min-w-full relative">
-                              <img
-                                src={image || "/placeholder.svg"}
-                                alt={`Foto bloqueada ${index + 1}`}
-                                className="w-full h-48 sm:h-56 object-cover"
-                                style={{ filter: "blur(12px) brightness(0.7)" }}
-                              />
-                              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                                <div className="text-center">
-                                  <Lock className="w-8 h-8 sm:w-10 sm:h-10 text-white mx-auto mb-2 opacity-80" />
-                                  <p className="text-white text-xs font-bold opacity-80">BLOCKED</p>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                      {/* Setas de Navegação */}
-                      <button
-                        onClick={prevSlide}
-                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full p-2 transition-all duration-200 backdrop-blur-sm"
-                      >
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </button>
-                      <button
-                        onClick={nextSlide}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full p-2 transition-all duration-200 backdrop-blur-sm"
-                      >
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
-
-                      {/* Indicadores de Slide */}
-                      <div className="flex justify-center mt-3 space-x-2">
-                        {blockedImages.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => setCurrentSlide(index)}
-                            className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                              index === currentSlide ? "bg-white" : "bg-gray-500"
-                            }`}
+                    <div className="mb-6 sm:mb-8">
+                      <div className="bg-gray-100 rounded-xl p-4 sm:p-5 flex items-center justify-center mb-4 sm:mb-5">
+                        {profilePhoto && (
+                          <img
+                            src={profilePhoto}
+                            alt="Profile"
+                            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-[#6C63FF] shadow-md mr-4"
                           />
-                        ))}
+                        )}
+                        <p className="text-lg sm:text-xl font-bold text-[#333333]">
+                          {selectedCountry.flag} {phoneNumber}
+                        </p>
+                      </div>
+
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-3 sm:p-4 text-yellow-800 text-sm sm:text-base font-medium flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                        Access to the report will be locked in: {formatTime(timeLeft)}
                       </div>
                     </div>
 
-                    <Button className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold py-2 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 touch-manipulation">
-                      👁️ VIEW COMPLETE PHOTOS NOW
+                    <Button
+                      onClick={() => setCurrentStep("email-capture")}
+                      className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                    >
+                      🔒 SECURELY UNLOCK REPORT
                     </Button>
                   </CardContent>
                 </Card>
 
-                {/* Timer with Enhanced Tension */}
-                <Card
-                  className={`text-white mb-4 sm:mb-6 rounded-2xl border-0 shadow-xl ${
-                    timeLeft <= 120 ? "bg-[#FFA500] animate-pulse" : "bg-[#FF3B30]"
-                  }`}
-                >
-                  <CardContent className="p-4 sm:p-6">
-                    <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                      <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 animate-bounce" />
-                      <span className="font-bold text-base sm:text-lg">REPORT WILL BE DELETED IN:</span>
-                    </div>
-                    <div className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{formatTime(timeLeft)}</div>
-                    <div className="space-y-1 sm:space-y-2 text-xs opacity-90">
-                      <p>After time expires, data will be permanently deleted for privacy reasons.</p>
-                      <p className="font-bold text-yellow-200">This access cannot be recovered later.</p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-                  <Card className="rounded-2xl border-0 shadow-lg">
-                    <CardContent className="p-3 sm:p-4 text-center">
-                      <div className="text-xl sm:text-2xl font-bold text-[#FF0066]">6</div>
-                      <div className="text-[0.6rem] sm:text-xs text-gray-600 font-medium">MATCHES (7 DAYS)</div>
-                    </CardContent>
-                  </Card>
-                  <Card className="rounded-2xl border-0 shadow-lg">
-                    <CardContent className="p-3 sm:p-4 text-center">
-                      <div className="text-xl sm:text-2xl font-bold text-[#FF0066]">30</div>
-                      <div className="text-[0.6rem] sm:text-xs text-gray-600 font-medium">LIKES (7 DAYS)</div>
-                    </CardContent>
-                  </Card>
-                  <Card className="rounded-2xl border-0 shadow-lg">
-                    <CardContent className="p-3 sm:p-4 text-center">
-                      <div className="text-xl sm:text-2xl font-bold text-[#FF0066]">4</div>
-                      <div className="text-[0.6rem] sm:text-xs text-gray-600 font-medium">ACTIVE DAYS</div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                {/* Activity */}
-                <Card className="mb-4 sm:mb-6 rounded-2xl border-0 shadow-lg">
-                  <CardContent className="p-4 sm:p-6">
-                    <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                      <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF0066] flex-shrink-0" />
-                      <span className="font-bold text-base sm:text-lg text-[#333333]">RECENT ACTIVITY</span>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3 p-3 bg-pink-50 rounded-2xl border border-pink-200">
-                        <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-[#FF0066] flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-sm text-[#333333]">Matched with 6 people</div>
-                          <div className="text-xs text-gray-600">Last 7 days • Very active</div>
-                        </div>
-                        <span className="bg-[#FF3B30] text-white text-[0.6rem] px-2 py-1 rounded-full font-bold flex-shrink-0">
-                          NEW
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-2xl border border-orange-200">
-                        <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 text-[#FFA500] flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-sm text-[#333333]">Received 30 likes</div>
-                          <div className="text-xs text-gray-600">Last 7 days • Very popular profile</div>
-                        </div>
-                        <span className="bg-[#FFA500] text-white text-[0.6rem] px-2 py-1 rounded-full font-bold flex-shrink-0">
-                          ACTIVE
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3 p-3 bg-red-50 rounded-2xl border border-red-200">
-                        <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-[#D8000C] flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-sm text-[#333333]">Used Tinder in a new location</div>
-                          <div className="text-xs text-gray-600">Today • Actively chatting</div>
-                        </div>
-                        <span className="bg-[#D8000C] text-white text-[0.6rem] px-2 py-1 rounded-full font-bold flex-shrink-0">
-                          ALERT
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-2xl border border-purple-200">
-                        <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-sm text-[#333333]">Sent 15 messages</div>
-                          <div className="text-xs text-gray-600">Today • Actively chatting</div>
-                        </div>
-                        <span className="bg-purple-500 text-white text-[0.6rem] px-2 py-1 rounded-full font-bold flex-shrink-0">
-                          TODAY
-                        </span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Email Capture Form */}
-                <Card className="bg-white rounded-2xl shadow-lg border-0 mb-4 sm:mb-6">
-                  <CardContent className="p-4 sm:p-6">
-                    <div className="text-center mb-4 sm:mb-6">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
-                      </div>
-                      <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-2">
-                        Want to unlock the complete report with full photos, chat history, and locations?
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-4 sm:mb-6">
-                        Enter your best email below and we'll send you the full confidential report.
-                      </p>
-                    </div>
-
-                    <div className="space-y-4">
-                      {/* Email Input */}
-                      <div>
-                        <label className="block text-sm font-semibold text-[#333333] mb-2">
-                          Email Address *
-                        </label>
-                        <Input
-                          type="email"
-                          placeholder="Enter your email to receive the full report"
-                          value={email}
-                          onChange={(e) => {
-                            setEmail(e.target.value)
-                            setEmailError("")
-                          }}
-                          className="rounded-xl border-2 border-gray-200 focus:border-blue-500 transition-colors duration-200 py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base"
-                          disabled={isSubmittingEmail}
+                {/* Blocked Content Carousel */}
+                <Card className="bg-gray-800 rounded-2xl shadow-xl border-0 p-4 sm:p-6 text-white text-center">
+                  <CardContent className="p-0">
+                    <h3 className="text-lg sm:text-xl font-bold mb-4">BLOCKED CONTENT</h3>
+                    <div className="relative overflow-hidden rounded-xl mb-4">
+                      <AnimatePresence initial={false} custom={currentSlide}>
+                        <motion.img
+                          key={currentSlide}
+                          src={blockedImages[currentSlide]}
+                          alt={`Blocked content ${currentSlide + 1}`}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="w-full h-auto rounded-xl object-cover"
                         />
-                        {emailError && <p className="text-xs sm:text-sm text-red-500 mt-2 font-medium">{emailError}</p>}
-                      </div>
-
-                      {/* Submit Button */}
-                      <Button
-                        onClick={handleEmailSubmit}
-                        disabled={!email || !email.includes("@") || isSubmittingEmail}
-                        className={`w-full py-3 sm:py-4 text-base sm:text-lg font-bold rounded-xl transition-all duration-300 touch-manipulation ${
-                          email && email.includes("@") && !isSubmittingEmail
-                            ? "bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white shadow-xl hover:shadow-2xl transform hover:scale-105"
-                            : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        }`}
+                      </AnimatePresence>
+                      <button
+                        onClick={prevSlide}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full z-10"
                       >
-                        {isSubmittingEmail ? (
-                          <div className="flex items-center justify-center gap-2">
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                            <span>SENDING REPORT...</span>
-                          </div>
-                        ) : (
-                          "📧 SEND ME THE COMPLETE REPORT"
-                        )}
-                      </Button>
-
-                      <p className="text-xs text-gray-500 text-center flex items-center justify-center gap-2 font-medium">
-                        <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
-                        Your email is encrypted and never shared with third parties
-                      </p>
+                        <X className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={nextSlide}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full z-10"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
                     </div>
+                    <p className="text-sm sm:text-base font-medium text-gray-300">
+                      Unlock the full report to see this content.
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -2027,243 +1630,160 @@ export default function SigiloX() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen bg-gradient-to-br from-[#6C63FF] to-[#8B5CF6] relative overflow-hidden"
+              className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] relative overflow-hidden p-4 sm:p-6 flex flex-col justify-center"
             >
-              {/* Floating particles - Reduced for mobile */}
-              <div className="absolute inset-0">
-                {[...Array(10)].map((_, i) => (
+              {/* Matrix Background */}
+              <div className="absolute inset-0 opacity-10 sm:opacity-20">
+                {matrixCodes.slice(0, 25).map((code, index) => (
                   <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 bg-white rounded-full opacity-20"
+                    key={index}
+                    className="absolute text-green-400 text-xs font-mono"
                     style={{
                       left: `${Math.random() * 100}%`,
                       top: `${Math.random() * 100}%`,
                     }}
                     animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.2, 0.6, 0.2],
-                      y: [0, -20, 0],
+                      y: [0, -40, 0],
+                      opacity: [0.3, 1, 0.3],
                     }}
                     transition={{
-                      duration: 3 + Math.random() * 2,
+                      duration: 5 + Math.random() * 4,
                       repeat: Number.POSITIVE_INFINITY,
-                      delay: Math.random() * 2,
+                      delay: Math.random() * 4,
                     }}
-                  />
+                  >
+                    {code}
+                  </motion.div>
                 ))}
               </div>
 
-              <div className="relative z-10 container mx-auto px-4 py-6 sm:py-8 flex items-center justify-center min-h-screen">
-                <div className="w-full max-w-lg">
-                  {/* Header */}
-                  <div className="text-center mb-6 sm:mb-8">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-2xl">
-                      <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-[#6C63FF]" />
+              <div className="relative z-10 w-full max-w-lg mx-auto container">
+                <Card className="bg-white rounded-2xl shadow-xl border-0 text-center p-6 sm:p-8">
+                  <CardContent>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-[#FFD700] to-[#FFBF00] rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-lg">
+                      <Mail className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
                     </div>
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
-                      📧 SECURE REPORT DELIVERY
-                    </h1>
-                    <p className="text-gray-200 text-sm sm:text-base px-4 leading-relaxed">
-                      Enter your email to receive the complete confidential report securely.
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-5">
+                      SECURE ACCESS TO YOUR REPORT
+                    </h2>
+                    <p className="text-gray-600 text-sm sm:text-base mb-6 sm:mb-8 font-medium">
+                      Enter your email below to securely receive your confidential report and unlock all content.
                     </p>
-                  </div>
 
-                  {/* Timer with Enhanced Tension */}
-                  <Card
-                    className={`text-white mb-6 sm:mb-8 rounded-2xl border-0 shadow-xl ${
-                      timeLeft <= 120 ? "bg-[#FFA500] animate-pulse" : "bg-[#FF3B30]"
-                    }`}
-                  >
-                    <CardContent className="p-4 sm:p-6">
-                      <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 animate-bounce" />
-                        <span className="font-bold text-base sm:text-lg">REPORT EXPIRES IN:</span>
-                      </div>
-                      <div className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{formatTime(timeLeft)}</div>
-                      <div className="space-y-1 sm:space-y-2 text-xs opacity-90">
-                        <p>After time expires, the report will be permanently deleted for privacy reasons.</p>
-                        <p className="font-bold text-yellow-200">This access cannot be recovered later.</p>
-                      </div>
-                    </CardContent>
-                  </Card>
+                    <Input
+                      type="email"
+                      placeholder="Your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full rounded-xl border-2 border-gray-200 focus:border-[#6C63FF] transition-colors duration-200 py-3 sm:py-4 px-4 sm:px-5 text-sm sm:text-base mb-4"
+                    />
+                    {emailError && (
+                      <p className="text-sm text-red-500 mb-4 font-medium">{emailError}</p>
+                    )}
 
-                  {/* Email Form */}
-                  <Card className="bg-white rounded-2xl shadow-lg border-0">
-                    <CardContent className="p-4 sm:p-8 space-y-6 sm:space-y-8">
-                      {/* Email Input */}
-                      <div>
-                        <label className="block text-sm sm:text-base font-semibold text-[#333333] mb-2 sm:mb-3">
-                          Email Address
-                        </label>
-                        <Input
-                          type="email"
-                          placeholder="your.email@example.com"
-                          value={email}
-                          onChange={(e) => {
-                            setEmail(e.target.value)
-                            setEmailError("")
-                          }}
-                          className="rounded-xl border-2 border-gray-200 focus:border-[#6C63FF] transition-colors duration-200 py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base"
-                          disabled={isSubmittingEmail}
-                        />
-                        {emailError && <p className="text-xs sm:text-sm text-red-500 mt-2 font-medium">{emailError}</p>}
-                        <p className="text-xs sm:text-sm text-gray-500 mt-2 font-medium">
-                          We'll send the complete report to this email address
-                        </p>
-                      </div>
+                    <Button
+                      onClick={handleEmailSubmit}
+                      disabled={isSubmittingEmail}
+                      className={`w-full py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg font-bold rounded-2xl shadow-xl transition-all duration-300 ${
+                        email && email.includes("@") && !isSubmittingEmail
+                          ? "bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white hover:scale-105"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
+                    >
+                      {isSubmittingEmail ? "Submitting..." : "RECEIVE REPORT NOW"}
+                    </Button>
 
-                      {/* Benefits */}
-                      <div className="bg-gray-50 rounded-2xl p-4 sm:p-6">
-                        <h3 className="font-bold text-[#333333] text-base sm:text-lg mb-4">What you'll receive:</h3>
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                            <span className="text-sm sm:text-base text-[#333333]">
-                              Complete profile photos (including private ones)
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                            <span className="text-sm sm:text-base text-[#333333]">
-                              Recent conversations and messages
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                            <span className="text-sm sm:text-base text-[#333333]">
-                              Exact location data and activity timeline
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Submit Button */}
-                      <Button
-                        onClick={handleEmailSubmit}
-                        disabled={!email || !email.includes("@") || isSubmittingEmail}
-                        className={`w-full py-3 sm:py-4 text-base sm:text-lg font-bold rounded-xl transition-all duration-300 touch-manipulation ${
-                          email && email.includes("@") && !isSubmittingEmail
-                            ? "bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white shadow-xl hover:shadow-2xl transform hover:scale-105"
-                            : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        }`}
-                      >
-                        {isSubmittingEmail ? (
-                          <div className="flex items-center justify-center gap-2">
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                            <span>PROCESSING...</span>
-                          </div>
-                        ) : (
-                          "📧 SEND COMPLETE REPORT"
-                        )}
-                      </Button>
-
-                      <p className="text-xs sm:text-sm text-gray-500 text-center flex items-center justify-center gap-2 font-medium">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5" />🔒 Your email is secure and will never be shared
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
+                    <p className="text-xs sm:text-sm text-gray-500 mt-4 font-medium">
+                      Your privacy is our priority. We will not share your email with third parties.
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-500 mt-2 font-medium">
+                      Report access locks in: {formatTime(timeLeft)}
+                    </p>
+                  </CardContent>
+                </Card>
               </div>
             </motion.div>
           )}
 
-          {/* Offer - Mobile Optimized */}
+          {/* Offer Page - Mobile Optimized */}
           {currentStep === "offer" && (
             <motion.div
               key="offer"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen bg-gradient-to-br from-[#FF3B30] to-[#FF0066] relative overflow-hidden"
+              className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] relative overflow-hidden p-4 sm:p-6 flex flex-col justify-center"
             >
-              {/* Floating hearts - Reduced for mobile */}
-              <div className="absolute inset-0">
-                {[...Array(10)].map((_, i) => (
+              {/* Matrix Background */}
+              <div className="absolute inset-0 opacity-10 sm:opacity-20">
+                {matrixCodes.slice(0, 25).map((code, index) => (
                   <motion.div
-                    key={i}
-                    className="absolute w-4 h-4 bg-white rounded-full opacity-20"
+                    key={index}
+                    className="absolute text-green-400 text-xs font-mono"
                     style={{
                       left: `${Math.random() * 100}%`,
                       top: `${Math.random() * 100}%`,
                     }}
                     animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.2, 0.6, 0.2],
-                      y: [0, -20, 0],
+                      y: [0, -40, 0],
+                      opacity: [0.3, 1, 0.3],
                     }}
                     transition={{
-                      duration: 3 + Math.random() * 2,
+                      duration: 5 + Math.random() * 4,
                       repeat: Number.POSITIVE_INFINITY,
-                      delay: Math.random() * 2,
+                      delay: Math.random() * 4,
                     }}
-                  />
+                  >
+                    {code}
+                  </motion.div>
                 ))}
               </div>
 
-              <div className="relative z-10 container mx-auto px-4 py-6 sm:py-8 flex items-center justify-center min-h-screen">
-                <div className="w-full max-w-lg">
-                  {/* Header */}
-                  <div className="text-center mb-6 sm:mb-8">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-2xl">
-                      <Lock className="w-8 h-8 sm:w-10 sm:h-10 text-[#FF0066]" />
+              <div className="relative z-10 w-full max-w-lg mx-auto container">
+                <Card className="bg-white rounded-2xl shadow-xl border-0 text-center p-6 sm:p-8">
+                  <CardContent>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-[#00FF99] to-[#00CC66] rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-lg">
+                      <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
                     </div>
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
-                      🔒 UNLOCK THE COMPLETE REPORT
-                    </h1>
-                    <p className="text-gray-200 text-sm sm:text-base px-4 leading-relaxed">
-                      See photos, conversations and exact location of the profile.
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#333333] mb-4 sm:mb-5">
+                      REPORT SUCCESSFULLY SENT!
+                    </h2>
+                    <p className="text-gray-600 text-sm sm:text-base mb-6 sm:mb-8 font-medium">
+                      Your confidential report has been successfully sent to your email. Check your inbox (and spam folder).
                     </p>
-                  </div>
 
-                  {/* Offer Card */}
-                  <Card className="bg-white rounded-2xl shadow-lg border-0">
-                    <CardContent className="p-4 sm:p-8 space-y-6 sm:space-y-8">
-                      {/* Price */}
-                      <div className="text-center">
-                        <div className="mb-3">
-                          <div className="text-2xl sm:text-3xl font-bold text-gray-400 line-through mb-1">$97.00</div>
-                          <div className="text-4xl sm:text-5xl font-bold text-[#FF0066] mb-2 sm:mb-3">$47.00</div>
-                          <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold">
-                            <span>🔥 51% OFF - LIMITED TIME</span>
-                          </div>
-                        </div>
-                        <p className="text-sm sm:text-base text-gray-500 font-medium">
-                          Unique and lifetime access to the complete report.
+                    <div className="mb-6 sm:mb-8">
+                      <div className="bg-gray-100 rounded-xl p-4 sm:p-5 flex items-center justify-center mb-4 sm:mb-5">
+                        <p className="text-lg sm:text-xl font-bold text-[#333333]">
+                          <span className="text-green-600 mr-2">✓</span> {email}
                         </p>
                       </div>
 
-                      {/* Features */}
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0" />
-                          <span className="font-medium text-sm sm:text-base text-[#333333]">
-                            See all profile photos (including private ones)
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0" />
-                          <span className="font-medium text-sm sm:text-base text-[#333333]">
-                            Access recent conversations (and what they're saying)
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0" />
-                          <span className="font-medium text-sm sm:text-base text-[#333333]">
-                            Discover exact location (and where they're scheduling dates)
-                          </span>
-                        </div>
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-3 sm:p-4 text-red-800 text-sm sm:text-base font-medium flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 animate-bounce" />
+                        For security and privacy, the report will be deleted from our servers in: {formatTime(timeLeft)}
                       </div>
+                    </div>
 
-                      {/* Submit Button */}
-                      <Button
-                        onClick={() => window.open("https://global.mundpay.com/priyelxoql?src=v2", "_blank")}
-                        className="w-full py-3 sm:py-4 text-base sm:text-lg font-bold rounded-xl bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 touch-manipulation"
-                      >
-                        💳 UNLOCK WITH SECURE PAYMENT
-                      </Button>
+                    <p className="text-xs sm:text-sm text-gray-500 font-medium mt-4">
+                      Make sure to download and save your report before the timer expires.
+                    </p>
+                  </CardContent>
+                </Card>
 
-                      <p className="text-xs sm:text-sm text-gray-500 text-center flex items-center justify-center gap-2 font-medium">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5" />🔒 Secure payment with SSL encryption
+                {/* Trust Badges */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-lg mx-auto mt-6 sm:mt-8">
+                  <Card className="bg-white rounded-xl shadow-lg border-0 p-4 sm:p-5 text-center">
+                    <CardContent className="p-0">
+                      <p className="flex items-center justify-center text-sm sm:text-base font-medium text-gray-700">
+                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> 100% Confidential
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-white rounded-xl shadow-lg border-0 p-4 sm:p-5 text-center">
+                    <CardContent className="p-0">
+                      <p className="flex items-center justify-center text-sm sm:text-base font-medium text-gray-700">
+                        <Lock className="w-4 h-4 sm:w-5 sm:h-5" />🔒 Secure payment with SSL encryption
                       </p>
                     </CardContent>
                   </Card>
@@ -2293,5 +1813,5 @@ export default function SigiloX() {
         </AnimatePresence>
       </div>
     </div>
-  )\
+  )
 }
