@@ -588,9 +588,6 @@ export default function SigiloX() {
   phoneNumber.length >= 10 &&
   selectedGender &&
   profilePhoto &&
-  lastTinderUse &&
-  cityChange &&
-  selectedAgeRange;
 
 return (
   <div
