@@ -556,10 +556,10 @@ export default function SigiloX() {
       console.error("Error submitting email:", error)
       setEmailError("Failed to submit email. Please try again.")
     } finally {
-      setIsSubmittingEmail(false)
+      setIsSubmittingEmail(false);
     }
-  }
-
+  };
+  
   // Funções do carrossel
   const blockedImages = [
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2016%20de%20jun.%20de%202025%2C%2013_13_25-pmZr6jZA37litzPJj8wNrpnkp0rvw7.png",
